@@ -9,11 +9,13 @@ vim.opt.expandtab = true
 
 vim.g.mapleader = " "
 
+-- system clipboard
 vim.schedule(function()
     vim.o.clipboard = 'unnamedplus'
 end)
 
 vim.pack.add({
+    { src = "https://github.com/folke/tokyonight.nvim" },
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/mason-org/mason.nvim" },
     { src = "https://github.com/saghen/blink.cmp",             version = vim.version.range('*') },
@@ -22,11 +24,14 @@ vim.pack.add({
     -- { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 })
 
+-- theme setup
+vim.cmd("colorscheme tokyonight-night")
 
 -- require "nvim-treesitter.configs".setup({ auto_install = true })
 require "mason".setup()
 
 vim.lsp.enable({ "lua_ls", "clangd", "basedpyright", "html", "cssls", "vtsls" })
+
 vim.lsp.config("basedpyright", {
     settings = {
         basedpyright = {
@@ -44,14 +49,24 @@ vim.lsp.config("clangd", {
 require "blink.cmp".setup({
     keymap = { preset = 'super-tab' },
     completion = { documentation = { auto_show = false } },
-
     sources = {
         default = { 'lsp', 'path', 'snippets', 'buffer' },
     },
-
     fuzzy = { implementation = "prefer_rust_with_warning" }
 })
 
+-- floating diagnostic messages
+vim.diagnostic.config {
+    severity_sort = true,
+    float = { border = 'rounded', source = 'if_many' },
+    underline = { severity = vim.diagnostic.severity.ERROR },
+    virtual_text = {
+        source = 'if_many',
+        spacing = 2,
+    },
+}
+
+-- telescope keymaps
 local builtin = require 'telescope.builtin'
 vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
@@ -64,4 +79,5 @@ vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' }
 vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
 vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
+-- other keymaps
 vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, { desc = 'Format buffer' })
