@@ -16,14 +16,14 @@ end)
 vim.pack.add({
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/mason-org/mason.nvim" },
+    { src = "https://github.com/saghen/blink.cmp",             version = vim.version.range('*') },
     { src = "https://github.com/nvim-lua/plenary.nvim" },
     { src = "https://github.com/nvim-telescope/telescope.nvim" },
-    { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+    -- { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 })
 
-local builtin = require 'telescope.builtin'
 
-require "nvim-treesitter.configs".setup({ auto_install = true })
+-- require "nvim-treesitter.configs".setup({ auto_install = true })
 require "mason".setup()
 
 vim.lsp.enable({ "lua_ls", "clangd", "basedpyright", "html", "cssls", "vtsls" })
@@ -41,6 +41,18 @@ vim.lsp.config("clangd", {
     cmd = { 'clangd', '--header-insertion=never' }
 })
 
+require "blink.cmp".setup({
+    keymap = { preset = 'super-tab' },
+    completion = { documentation = { auto_show = false } },
+
+    sources = {
+        default = { 'lsp', 'path', 'snippets', 'buffer' },
+    },
+
+    fuzzy = { implementation = "prefer_rust_with_warning" }
+})
+
+local builtin = require 'telescope.builtin'
 vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
 vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
