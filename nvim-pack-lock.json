@@ -5,10 +5,6 @@
       "src": "https://github.com/saghen/blink.cmp",
       "version": ">=0.0.0"
     },
-    "kanagawa.nvim": {
-      "rev": "aef7f5c",
-      "src": "https://github.com/rebelot/kanagawa.nvim"
-    },
     "mason.nvim": {
       "rev": "57e5a8a",
       "src": "https://github.com/mason-org/mason.nvim"
@@ -18,7 +14,7 @@
       "src": "https://github.com/EdenEast/nightfox.nvim"
     },
     "nvim-lspconfig": {
-      "rev": "07f4e93",
+      "rev": "0044d09",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-treesitter": {
@@ -30,7 +26,7 @@
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
     "telescope.nvim": {
-      "rev": "f0caedf",
+      "rev": "e69b434",
       "src": "https://github.com/nvim-telescope/telescope.nvim"
     },
     "tokyonight.nvim": {

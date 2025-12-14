@@ -1,10 +1,11 @@
+-- general configs
+vim.opt.swapfile = false
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.swapfile = false
 vim.opt.signcolumn = "yes"
-
 vim.opt.scrolloff = 10
 
+-- tab stuff
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
@@ -16,6 +17,7 @@ vim.schedule(function()
     vim.o.clipboard = 'unnamedplus'
 end)
 
+-- packages
 vim.pack.add({
     { src = "https://github.com/folke/tokyonight.nvim" },
     { src = "https://github.com/EdenEast/nightfox.nvim" },
@@ -30,17 +32,16 @@ vim.pack.add({
 -- theme setup
 vim.cmd("colorscheme carbonfox")
 
+-- treesitter
 require("nvim-treesitter.configs").setup({
     auto_install = true,
-    highlight = {
-        enable = true,
-    }
+    highlight = { enable = true, },
+    indent = { enable = true, },
 })
 
+-- LSP setup
 require("mason").setup()
-
 vim.lsp.enable({ "lua_ls", "clangd", "basedpyright", "html", "cssls", "vtsls" })
-
 vim.lsp.config("basedpyright", {
     settings = {
         basedpyright = {
@@ -55,6 +56,7 @@ vim.lsp.config("clangd", {
     cmd = { 'clangd', '--header-insertion=never' }
 })
 
+-- autocomplete
 require("blink.cmp").setup({
     keymap = { preset = 'super-tab' },
     completion = { documentation = { auto_show = false } },
@@ -78,17 +80,17 @@ vim.diagnostic.config {
 
 -- telescope keymaps
 local builtin = require 'telescope.builtin'
-vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
 vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
-vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
 vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
 vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
 -- other keymaps
 vim.keymap.set('n', '<leader>f', vim.lsp.buf.format, { desc = 'Format buffer' })
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>') -- esc to remove search highlight
+vim.keymap.set('n', '<leader>e', '<cmd>Explore<CR>', { desc = 'Netrw' })
+vim.keymap.set('n', '<leader>w', '<cmd>w<CR>', { desc = 'Write to file' })
+vim.keymap.set('n', '<leader>q', '<cmd>q<CR>', { desc = 'Quit' })
+
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', { desc = 'Remove search highlight' }) -- esc to remove search highlight
