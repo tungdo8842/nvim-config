@@ -1,11 +1,17 @@
 -- general configs
 vim.opt.swapfile = false
+vim.opt.undofile = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.signcolumn = "yes"
 vim.opt.scrolloff = 10
 vim.opt.wrap = false
 vim.opt.termguicolors = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+
+-- timing
+vim.opt.updatetime = 250
 
 -- tab stuff
 vim.opt.tabstop = 4
@@ -47,7 +53,11 @@ require("nvim-treesitter.configs").setup({
 require("mason").setup()
 vim.lsp.enable({ "lua_ls", "clangd", "basedpyright", "html", "cssls",
     "vtsls", "rust_analyzer" })
+
 -- lsp configs
+vim.lsp.config("lua_ls", {
+    settings = { Lua = { workspace = { library = vim.api.nvim_get_runtime_file("", true) } } }
+})
 vim.lsp.config("basedpyright", {
     settings = { basedpyright = { analysis = { typeCheckingMode = "basic", autoImportCompletions = false, } } }
 })
@@ -68,6 +78,7 @@ require("blink.cmp").setup({
 
 -- floating diagnostic messages
 vim.diagnostic.config {
+    -- severity_sort = true,
     -- virtual_text = true,
     virtual_lines = true,
 }
