@@ -37,17 +37,10 @@ vim.pack.add({
     -- other stuff
     { src = "https://github.com/nvim-lua/plenary.nvim" },
     { src = "https://github.com/nvim-telescope/telescope.nvim" },
-    { src = "https://github.com/nvim-treesitter/nvim-treesitter" },
 })
 
 -- theme setup
 vim.cmd("colorscheme kanagawa-dragon")
-
--- treesitter
-require("nvim-treesitter.configs").setup({
-    auto_install = true,
-    highlight = { enable = true, },
-})
 
 -- lsp setup
 require("mason").setup()
