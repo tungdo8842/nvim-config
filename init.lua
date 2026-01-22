@@ -33,19 +33,19 @@ vim.pack.add({
     -- lsp and autocomplete
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/mason-org/mason.nvim" },
-    { src = "https://github.com/saghen/blink.cmp",               version = vim.version.range("*") },
+    { src = "https://github.com/saghen/blink.cmp",             version = vim.version.range("*") },
     -- other stuff
     { src = "https://github.com/nvim-lua/plenary.nvim" },
     { src = "https://github.com/nvim-telescope/telescope.nvim" },
 })
 
 -- theme setup
-vim.cmd("colorscheme kanagawa-dragon")
+vim.cmd("colorscheme vague")
 
 -- lsp setup
 require("mason").setup()
 vim.lsp.enable({ "lua_ls", "clangd", "basedpyright", "html", "cssls",
-    "vtsls", "rust_analyzer" })
+    "vtsls", "rust_analyzer", "r_language_server"})
 
 -- lsp configs
 vim.lsp.config("lua_ls", {
@@ -71,9 +71,9 @@ require("blink.cmp").setup({
 
 -- floating diagnostic messages
 vim.diagnostic.config {
-    -- severity_sort = true,
-    -- virtual_text = true,
-    virtual_lines = true,
+    severity_sort = true,
+    virtual_text = true,
+    -- virtual_lines = true,
 }
 
 -- telescope keymaps
