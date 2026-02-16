@@ -5,6 +5,10 @@
       "src": "https://github.com/saghen/blink.cmp",
       "version": ">=0.0.0"
     },
+    "github-nvim-theme": {
+      "rev": "c106c9472154d6b2c74b74565616b877ae8ed31d",
+      "src": "https://github.com/projekt0n/github-nvim-theme"
+    },
     "kanagawa.nvim": {
       "rev": "aef7f5c",
       "src": "https://github.com/rebelot/kanagawa.nvim"
@@ -13,13 +17,14 @@
       "rev": "57e5a8a",
       "src": "https://github.com/mason-org/mason.nvim"
     },
-    "nightfox.nvim": {
-      "rev": "ba47d4b",
-      "src": "https://github.com/EdenEast/nightfox.nvim"
-    },
     "nvim-lspconfig": {
       "rev": "0b38bc7",
       "src": "https://github.com/neovim/nvim-lspconfig"
+    },
+    "nvim-treesitter": {
+      "rev": "42fc28ba918343ebfd5565147a42a26580579482",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter",
+      "version": "'master'"
     },
     "plenary.nvim": {
       "rev": "b9fd522",

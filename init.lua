@@ -27,25 +27,45 @@ vim.opt.clipboard = "unnamedplus"
 -- packages
 vim.pack.add({
     -- themes
-    { src = "https://github.com/EdenEast/nightfox.nvim" },
     { src = "https://github.com/rebelot/kanagawa.nvim" },
     { src = "https://github.com/vague-theme/vague.nvim" },
+    { src = "https://github.com/projekt0n/github-nvim-theme" },
     -- lsp and autocomplete
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/mason-org/mason.nvim" },
-    { src = "https://github.com/saghen/blink.cmp",             version = vim.version.range("*") },
+    { src = "https://github.com/saghen/blink.cmp",                version = vim.version.range("*") },
     -- other stuff
     { src = "https://github.com/nvim-lua/plenary.nvim" },
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "master" },
     { src = "https://github.com/nvim-telescope/telescope.nvim" },
 })
 
 -- theme setup
 vim.cmd("colorscheme vague")
 
+-- treesitter
+require("nvim-treesitter.configs").setup({
+    auto_install = true,
+    highlight = { enable = true, },
+})
+
 -- lsp setup
 require("mason").setup()
-vim.lsp.enable({ "lua_ls", "clangd", "basedpyright", "html", "cssls",
-    "vtsls", "rust_analyzer", "r_language_server"})
+
+local installedPacks = require("mason-registry").get_installed_packages()
+local lspConfigNames = vim.iter(installedPacks):fold({}, function(acc, pack)
+    table.insert(acc, pack.spec.neovim and pack.spec.neovim.lspconfig)
+    return acc
+end)
+vim.lsp.enable(lspConfigNames)
+
+-- vim.lsp.enable({ "lua_ls", "clangd", "basedpyright", "html", "cssls",
+--     "vtsls", "rust_analyzer", "r_language_server", })
+
+-- telescope ignore directories
+require("telescope").setup({
+    defaults = { file_ignore_patterns = { "R/", } }
+})
 
 -- lsp configs
 vim.lsp.config("lua_ls", {
