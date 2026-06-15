@@ -36,18 +36,11 @@ vim.pack.add({
     { src = "https://github.com/saghen/blink.cmp",                version = vim.version.range("*") },
     -- other stuff
     { src = "https://github.com/nvim-lua/plenary.nvim" },
-    { src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "master" },
     { src = "https://github.com/nvim-telescope/telescope.nvim" },
 })
 
 -- theme setup
 vim.cmd("colorscheme vague")
-
--- treesitter
-require("nvim-treesitter.configs").setup({
-    auto_install = true,
-    highlight = { enable = true, },
-})
 
 -- lsp setup
 require("mason").setup()
@@ -59,9 +52,6 @@ local lspConfigNames = vim.iter(installedPacks):fold({}, function(acc, pack)
 end)
 vim.lsp.enable(lspConfigNames)
 
--- vim.lsp.enable({ "lua_ls", "clangd", "basedpyright", "html", "cssls",
---     "vtsls", "rust_analyzer", "r_language_server", })
-
 -- telescope ignore directories
 require("telescope").setup({
     defaults = { file_ignore_patterns = { "R/", } }
@@ -72,7 +62,7 @@ vim.lsp.config("lua_ls", {
     settings = { Lua = { workspace = { library = vim.api.nvim_get_runtime_file("", true) } } }
 })
 vim.lsp.config("basedpyright", {
-    settings = { basedpyright = { analysis = { typeCheckingMode = "basic", autoImportCompletions = false, } } }
+    settings = { basedpyright = { analysis = { typeCheckingMode = "off", autoImportCompletions = false, } } }
 })
 vim.lsp.config("clangd", {
     cmd = { "clangd", "--header-insertion=never" }
@@ -110,4 +100,6 @@ vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "Format buffer" })
 vim.keymap.set("n", "<leader>e", "<cmd>Explore<CR>", { desc = "Netrw" })
 vim.keymap.set("n", "<leader>w", "<cmd>w<CR>", { desc = "Write to file" })
 vim.keymap.set("n", "<leader>q", "<cmd>q<CR>", { desc = "Quit" })
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Remove search highlight" }) -- esc to remove search highlight
+
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Remove search highlight" })
+vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
